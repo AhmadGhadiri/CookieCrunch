@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-enum CookieType: Int, Printable {
+enum CookieType: Int, Printable{
     case Unknown = 0, Croissant, Cupcake, Danish, Donut, Macaroon, SugarCookie
     
     
@@ -38,7 +38,12 @@ enum CookieType: Int, Printable {
     }
 }
 
-class Cookie: Printable {
+
+func ==(lhs: Cookie, rhs: Cookie) -> Bool {
+    return lhs.column == rhs.column && lhs.row == rhs.row
+}
+
+class Cookie: Printable, Hashable {
     var column: Int
     var row: Int
     let cookieType: CookieType
@@ -53,5 +58,9 @@ class Cookie: Printable {
         self.column = column
         self.row = row
         self.cookieType = cookieType
+    }
+    
+    var hashValue: Int {
+        return row*10+column
     }
 }
