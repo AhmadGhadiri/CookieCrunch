@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		E03DAC001AD540D200014779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DABFF1AD540D200014779 /* AppDelegate.swift */; };
-		E03DAC021AD540D200014779 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E03DAC011AD540D200014779 /* GameScene.sks */; };
 		E03DAC041AD540D200014779 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DAC031AD540D200014779 /* GameScene.swift */; };
 		E03DAC061AD540D200014779 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DAC051AD540D200014779 /* GameViewController.swift */; };
 		E03DAC091AD540D200014779 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E03DAC071AD540D200014779 /* Main.storyboard */; };
 		E03DAC0B1AD540D200014779 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E03DAC0A1AD540D200014779 /* Images.xcassets */; };
 		E03DAC0E1AD540D200014779 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E03DAC0C1AD540D200014779 /* LaunchScreen.xib */; };
 		E03DAC1A1AD540D200014779 /* CookieCrunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DAC191AD540D200014779 /* CookieCrunchTests.swift */; };
+		E03DAC241AD5416B00014779 /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E03DAC231AD5416B00014779 /* Sprites.atlas */; };
+		E03DAC261AD5438D00014779 /* Cookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DAC251AD5438D00014779 /* Cookie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +32,6 @@
 		E03DABFA1AD540D200014779 /* CookieCrunch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookieCrunch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E03DABFE1AD540D200014779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E03DABFF1AD540D200014779 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E03DAC011AD540D200014779 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		E03DAC031AD540D200014779 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		E03DAC051AD540D200014779 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		E03DAC081AD540D200014779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -40,6 +40,8 @@
 		E03DAC131AD540D200014779 /* CookieCrunchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookieCrunchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E03DAC181AD540D200014779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E03DAC191AD540D200014779 /* CookieCrunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieCrunchTests.swift; sourceTree = "<group>"; };
+		E03DAC231AD5416B00014779 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Sprites.atlas; path = ../Sprites.atlas; sourceTree = "<group>"; };
+		E03DAC251AD5438D00014779 /* Cookie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cookie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,11 +84,12 @@
 			isa = PBXGroup;
 			children = (
 				E03DABFF1AD540D200014779 /* AppDelegate.swift */,
-				E03DAC011AD540D200014779 /* GameScene.sks */,
 				E03DAC031AD540D200014779 /* GameScene.swift */,
 				E03DAC051AD540D200014779 /* GameViewController.swift */,
+				E03DAC251AD5438D00014779 /* Cookie.swift */,
 				E03DAC071AD540D200014779 /* Main.storyboard */,
 				E03DAC0A1AD540D200014779 /* Images.xcassets */,
+				E03DAC231AD5416B00014779 /* Sprites.atlas */,
 				E03DAC0C1AD540D200014779 /* LaunchScreen.xib */,
 				E03DABFD1AD540D200014779 /* Supporting Files */,
 			);
@@ -200,8 +203,8 @@
 			files = (
 				E03DAC0E1AD540D200014779 /* LaunchScreen.xib in Resources */,
 				E03DAC0B1AD540D200014779 /* Images.xcassets in Resources */,
-				E03DAC021AD540D200014779 /* GameScene.sks in Resources */,
 				E03DAC091AD540D200014779 /* Main.storyboard in Resources */,
+				E03DAC241AD5416B00014779 /* Sprites.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E03DAC041AD540D200014779 /* GameScene.swift in Sources */,
+				E03DAC261AD5438D00014779 /* Cookie.swift in Sources */,
 				E03DAC061AD540D200014779 /* GameViewController.swift in Sources */,
 				E03DAC001AD540D200014779 /* AppDelegate.swift in Sources */,
 			);
