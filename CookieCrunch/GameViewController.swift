@@ -29,7 +29,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         // Configure the view.
-        let skView = view as SKView
+        let skView = view as! SKView
         skView.multipleTouchEnabled = false
         
         
@@ -38,7 +38,7 @@ class GameViewController: UIViewController {
         scene.scaleMode = .AspectFill
         
         // Create the level and add it to scene
-        level = Level()
+        level = Level(filename: "Level_1")
         scene.level = level
         
         // Present the scene.
