@@ -23,12 +23,12 @@ class Level {
         return cookies[column, row]
     }
 
-    func shuffle() -> Set<Cookie> {
+    func shuffle() -> MySet<Cookie> {
         return createInitialCookies()
     }
     
-    private func createInitialCookies() -> Set<Cookie> {
-        var set = Set<Cookie>()
+    private func createInitialCookies() -> MySet<Cookie> {
+        var set = MySet<Cookie>()
         
         // 1
         for row in 0..<NumRows {

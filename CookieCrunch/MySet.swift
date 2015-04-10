@@ -1,13 +1,13 @@
 //
-//  Set.swift
-//  CookieCrunch
+//  MySet.swift
+//  
 //
-//  Created by Ahmad Ghadiri on 4/8/15.
-//  Copyright (c) 2015 Ahmad Ghadiri. All rights reserved.
+//  Created by Ahmad Ghadiri on 4/10/15.
+//
 //
 
-//This class acts as a set 
-struct Set<T: Hashable>: SequenceType, Printable {
+//This class acts as a set
+struct MySet<T: Hashable>: SequenceType, Printable {
     private var dictionary = Dictionary<T, Bool>()
     
     mutating func addElement(newElement: T) {
@@ -30,8 +30,8 @@ struct Set<T: Hashable>: SequenceType, Printable {
         return dictionary.count
     }
     
-    func unionSet(otherSet: Set<T>) -> Set<T> {
-        var combined = Set<T>()
+    func unionSet(otherSet: MySet<T>) -> MySet<T> {
+        var combined = MySet<T>()
         
         for obj in dictionary.keys {
             combined.dictionary[obj] = true
