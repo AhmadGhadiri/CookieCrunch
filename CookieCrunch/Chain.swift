@@ -7,6 +7,10 @@
 //
 
 class Chain: Hashable, Printable {
+    // For score
+    var score = 0
+    
+    
     var cookies = [Cookie]()
     
     enum ChainType: Printable {
@@ -20,6 +24,8 @@ class Chain: Hashable, Printable {
             }
         }
     }
+    
+    
     
     var chainType: ChainType
     

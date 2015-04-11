@@ -13,6 +13,14 @@ class GameViewController: UIViewController {
     var scene: GameScene!
     var level: Level!
     
+    // For scores
+    var movesLeft = 0
+    var score = 0
+    
+    @IBOutlet weak var targetLabel: UILabel!
+    @IBOutlet weak var movesLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -56,6 +64,9 @@ class GameViewController: UIViewController {
     }
     
     func beginGame() {
+        movesLeft = level.maximumMoves
+        score = 0
+        updateLabels()
         shuffle()
     }
     
@@ -75,6 +86,7 @@ class GameViewController: UIViewController {
             level.performSwap(swap)
             // Performs swap and wait for removing to be completed
             scene.animateSwap(swap, completion: handleMatches)
+            movesLeft--
         } else {
             scene.animateInvalidSwap(swap){
             self.view.userInteractionEnabled = true
@@ -90,6 +102,12 @@ class GameViewController: UIViewController {
             return
         }
         scene.animateMatchedCookies(chains) {
+            // To handle the score
+            for chain in chains {
+                self.score += chain.score
+            }
+            self.updateLabels()
+            
             let columns = self.level.fillHoles()
             self.scene.animateFallingCookies(columns) {
                 let columns = self.level.topUpCookies()
@@ -104,6 +122,13 @@ class GameViewController: UIViewController {
     func beginNextTurn() {
         level.detectPossibleSwaps()
         view.userInteractionEnabled = true
+    }
+    
+    // Initiate the labels
+    func updateLabels() {
+        targetLabel.text = String(format: "%ld", level.targetScore)
+        movesLabel.text = String(format: "%ld", movesLeft)
+        scoreLabel.text = String(format: "%ld", score)
     }
     
     
