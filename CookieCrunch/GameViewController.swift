@@ -85,17 +85,26 @@ class GameViewController: UIViewController {
     // Handling the matches in the game map
     func handleMatches() {
         let chains = level.removeMatches()
+        if chains.count == 0 {
+            beginNextTurn()
+            return
+        }
         scene.animateMatchedCookies(chains) {
             let columns = self.level.fillHoles()
             self.scene.animateFallingCookies(columns) {
                 let columns = self.level.topUpCookies()
                 self.scene.animateNewCookies(columns) {
-                    self.view.userInteractionEnabled = true
+                    self.handleMatches()
                 }
             }
         }
     }
     
+    // Very interesting: calling detectPossibleSwaps from here solves the problem
+    func beginNextTurn() {
+        level.detectPossibleSwaps()
+        view.userInteractionEnabled = true
+    }
     
     
 }
