@@ -17,6 +17,9 @@ struct Array2D<T> {
         array = Array<T?>(count: rows*columns, repeatedValue: nil)
     }
     
+    
+    // Subscripts pretty cool 
+    // https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Subscripts.html
     subscript(column: Int, row: Int) -> T? {
         get {
             return array[row*columns + column]

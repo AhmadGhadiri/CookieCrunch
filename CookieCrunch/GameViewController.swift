@@ -64,6 +64,10 @@ class GameViewController: UIViewController {
         scene.addSpritesForCookies(newCookies)
     }
     
+    
+    // This function handles the swaps in the GameScence
+    // It had one parameter and it returns void
+    // Same as the swipeHandler type in GameScene class
     func handleSwipe(swap: Swap) {
         view.userInteractionEnabled = false
         
