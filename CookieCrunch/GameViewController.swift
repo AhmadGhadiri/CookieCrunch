@@ -35,6 +35,8 @@ class GameViewController: UIViewController {
         
         // Create and configure the scene.
         scene = GameScene(size: skView.bounds.size)
+        
+        /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .AspectFill
         
         // For swapping 
