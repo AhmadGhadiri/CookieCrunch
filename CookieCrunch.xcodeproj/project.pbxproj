@@ -22,6 +22,8 @@
 		E08680D21AD98CA300129F2C /* Swap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680D11AD98CA300129F2C /* Swap.swift */; };
 		E08680D41AD98CDA00129F2C /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680D31AD98CDA00129F2C /* Tile.swift */; };
 		E08680D61AD98D0A00129F2C /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680D51AD98D0A00129F2C /* Extentions.swift */; };
+		E08680DD1AD9902E00129F2C /* RWTChain.m in Sources */ = {isa = PBXBuildFile; fileRef = E08680DC1AD9902E00129F2C /* RWTChain.m */; };
+		E08680E01AD9A7C800129F2C /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680DF1AD9A7C800129F2C /* Chain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,10 @@
 		E08680D11AD98CA300129F2C /* Swap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swap.swift; sourceTree = "<group>"; };
 		E08680D31AD98CDA00129F2C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		E08680D51AD98D0A00129F2C /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		E08680DB1AD9902D00129F2C /* CookieCrunch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CookieCrunch-Bridging-Header.h"; sourceTree = "<group>"; };
+		E08680DC1AD9902E00129F2C /* RWTChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTChain.m; sourceTree = "<group>"; };
+		E08680DE1AD9929D00129F2C /* RWTChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RWTChain.h; sourceTree = "<group>"; };
+		E08680DF1AD9A7C800129F2C /* Chain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,7 @@
 				E03DABFC1AD540D200014779 /* CookieCrunch */,
 				E03DAC161AD540D200014779 /* CookieCrunchTests */,
 				E03DABFB1AD540D200014779 /* Products */,
+				E08680DB1AD9902D00129F2C /* CookieCrunch-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +102,9 @@
 		E03DABFC1AD540D200014779 /* CookieCrunch */ = {
 			isa = PBXGroup;
 			children = (
+				E08680DC1AD9902E00129F2C /* RWTChain.m */,
+				E08680DE1AD9929D00129F2C /* RWTChain.h */,
+				E08680DF1AD9A7C800129F2C /* Chain.swift */,
 				E03DABFF1AD540D200014779 /* AppDelegate.swift */,
 				E03DAC031AD540D200014779 /* GameScene.swift */,
 				E03DAC051AD540D200014779 /* GameViewController.swift */,
@@ -249,6 +259,8 @@
 				E03DAC061AD540D200014779 /* GameViewController.swift in Sources */,
 				E08680D41AD98CDA00129F2C /* Tile.swift in Sources */,
 				E03DAC001AD540D200014779 /* AppDelegate.swift in Sources */,
+				E08680E01AD9A7C800129F2C /* Chain.swift in Sources */,
+				E08680DD1AD9902E00129F2C /* RWTChain.m in Sources */,
 				E08680CC1AD98C7F00129F2C /* Array2D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,9 +384,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CookieCrunch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = RWTChain.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "CookieCrunch-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -382,9 +398,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CookieCrunch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = RWTChain.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "CookieCrunch-Bridging-Header.h";
 			};
 			name = Release;
 		};
