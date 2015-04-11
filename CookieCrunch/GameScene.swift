@@ -283,5 +283,32 @@ class GameScene: SKScene {
         runAction(matchSound)
         runAction(SKAction.waitForDuration(0.3), completion: completion)
     }
+    
+    // Now fill the empty sprites after successful swap
+    func animateFallingCookies(columns: [[Cookie]], completion: () -> ()) {
+        // 1
+        var longestDuration: NSTimeInterval = 0
+        for array in columns {
+            for (idx, cookie) in enumerate(array) {
+                let newPosition = pointForColumn(cookie.column, row: cookie.row)
+                // 2
+                let delay = 0.05 + 0.15*NSTimeInterval(idx)
+                // 3
+                let sprite = cookie.sprite!
+                let duration = NSTimeInterval(((sprite.position.y - newPosition.y) / TileHeight) * 0.1)
+                // 4
+                longestDuration = max(longestDuration, duration + delay)
+                // 5
+                let moveAction = SKAction.moveTo(newPosition, duration: duration)
+                moveAction.timingMode = .EaseOut
+                sprite.runAction(
+                    SKAction.sequence([
+                        SKAction.waitForDuration(delay),
+                        SKAction.group([moveAction, fallingCookieSound])]))
+            }
+        }
+        // 6
+        runAction(SKAction.waitForDuration(longestDuration), completion: completion)
+    }
 
 }
