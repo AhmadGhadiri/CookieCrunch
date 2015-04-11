@@ -16,6 +16,12 @@
 		E03DAC1A1AD540D200014779 /* CookieCrunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DAC191AD540D200014779 /* CookieCrunchTests.swift */; };
 		E03DAC241AD5416B00014779 /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E03DAC231AD5416B00014779 /* Sprites.atlas */; };
 		E03DAC261AD5438D00014779 /* Cookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DAC251AD5438D00014779 /* Cookie.swift */; };
+		E08680CC1AD98C7F00129F2C /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680CB1AD98C7F00129F2C /* Array2D.swift */; };
+		E08680CE1AD98C9400129F2C /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680CD1AD98C9400129F2C /* Level.swift */; };
+		E08680D01AD98C9C00129F2C /* MySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680CF1AD98C9C00129F2C /* MySet.swift */; };
+		E08680D21AD98CA300129F2C /* Swap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680D11AD98CA300129F2C /* Swap.swift */; };
+		E08680D41AD98CDA00129F2C /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680D31AD98CDA00129F2C /* Tile.swift */; };
+		E08680D61AD98D0A00129F2C /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680D51AD98D0A00129F2C /* Extentions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +48,12 @@
 		E03DAC191AD540D200014779 /* CookieCrunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieCrunchTests.swift; sourceTree = "<group>"; };
 		E03DAC231AD5416B00014779 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Sprites.atlas; path = ../Sprites.atlas; sourceTree = "<group>"; };
 		E03DAC251AD5438D00014779 /* Cookie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cookie.swift; sourceTree = "<group>"; };
+		E08680CB1AD98C7F00129F2C /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
+		E08680CD1AD98C9400129F2C /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		E08680CF1AD98C9C00129F2C /* MySet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySet.swift; sourceTree = "<group>"; };
+		E08680D11AD98CA300129F2C /* Swap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swap.swift; sourceTree = "<group>"; };
+		E08680D31AD98CDA00129F2C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		E08680D51AD98D0A00129F2C /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +98,12 @@
 				E03DABFF1AD540D200014779 /* AppDelegate.swift */,
 				E03DAC031AD540D200014779 /* GameScene.swift */,
 				E03DAC051AD540D200014779 /* GameViewController.swift */,
+				E08680CB1AD98C7F00129F2C /* Array2D.swift */,
+				E08680CF1AD98C9C00129F2C /* MySet.swift */,
+				E08680D11AD98CA300129F2C /* Swap.swift */,
+				E08680CD1AD98C9400129F2C /* Level.swift */,
+				E08680D51AD98D0A00129F2C /* Extentions.swift */,
+				E08680D31AD98CDA00129F2C /* Tile.swift */,
 				E03DAC251AD5438D00014779 /* Cookie.swift */,
 				E03DAC071AD540D200014779 /* Main.storyboard */,
 				E03DAC0A1AD540D200014779 /* Images.xcassets */,
@@ -222,10 +240,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E08680D21AD98CA300129F2C /* Swap.swift in Sources */,
+				E08680D01AD98C9C00129F2C /* MySet.swift in Sources */,
+				E08680D61AD98D0A00129F2C /* Extentions.swift in Sources */,
+				E08680CE1AD98C9400129F2C /* Level.swift in Sources */,
 				E03DAC041AD540D200014779 /* GameScene.swift in Sources */,
 				E03DAC261AD5438D00014779 /* Cookie.swift in Sources */,
 				E03DAC061AD540D200014779 /* GameViewController.swift in Sources */,
+				E08680D41AD98CDA00129F2C /* Tile.swift in Sources */,
 				E03DAC001AD540D200014779 /* AppDelegate.swift in Sources */,
+				E08680CC1AD98C7F00129F2C /* Array2D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +441,7 @@
 				E03DAC1F1AD540D200014779 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E03DAC201AD540D200014779 /* Build configuration list for PBXNativeTarget "CookieCrunchTests" */ = {
 			isa = XCConfigurationList;
@@ -425,6 +450,7 @@
 				E03DAC221AD540D200014779 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
