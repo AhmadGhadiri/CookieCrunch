@@ -85,6 +85,10 @@ class GameViewController: UIViewController {
     // Handling the matches in the game map
     func handleMatches() {
         let chains = level.removeMatches()
-        // TODO: do something with the chains set
+        
+        scene.animateMatchedCookies(chains) {
+            self.view.userInteractionEnabled = true
+        }
     }
+    
 }
