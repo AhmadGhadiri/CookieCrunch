@@ -65,6 +65,9 @@ class GameScene: SKScene {
         
         swipeFromColumn = nil
         swipeFromRow = nil
+        
+        // Preload the font to remove the delay
+        SKLabelNode(fontNamed: "GillSans-BoldItalic")
 
     }
     
@@ -269,6 +272,10 @@ class GameScene: SKScene {
     // Animating the removing of cookies
     func animateMatchedCookies(chains: MySet<Chain>, completion: () -> ()) {
         for chain in chains {
+            
+            // For scores
+            animateScoreForChain(chain)
+            
             for cookie in chain.cookies {
                 if let sprite = cookie.sprite {
                     if sprite.actionForKey("removing") == nil {
@@ -349,6 +356,28 @@ class GameScene: SKScene {
         }
         // 7
         runAction(SKAction.waitForDuration(longestDuration), completion: completion)
+    }
+    
+    // Showing the score of each move
+    func animateScoreForChain(chain: Chain) {
+        // Figure out what the midpoint of the chain is.
+        let firstSprite = chain.firstCookie().sprite!
+        let lastSprite = chain.lastCookie().sprite!
+        let centerPosition = CGPoint(
+            x: (firstSprite.position.x + lastSprite.position.x)/2,
+            y: (firstSprite.position.y + lastSprite.position.y)/2 - 8)
+        
+        // Add a label for the score that slowly floats up.
+        let scoreLabel = SKLabelNode(fontNamed: "GillSans-BoldItalic")
+        scoreLabel.fontSize = 16
+        scoreLabel.text = String(format: "%ld", chain.score)
+        scoreLabel.position = centerPosition
+        scoreLabel.zPosition = 300
+        cookiesLayer.addChild(scoreLabel)
+        
+        let moveAction = SKAction.moveBy(CGVector(dx: 0, dy: 3), duration: 0.7)
+        moveAction.timingMode = .EaseOut
+        scoreLabel.runAction(SKAction.sequence([moveAction, SKAction.removeFromParent()]))
     }
 
 }
