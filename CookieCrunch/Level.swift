@@ -189,4 +189,8 @@ class Level {
         swap.cookieA.column = columnB
         swap.cookieA.row = rowB
     }
+    
+    func isPossibleSwap(swap: Swap) -> Bool {
+        return possibleSwaps.containsElement(swap)
+    }
 }
