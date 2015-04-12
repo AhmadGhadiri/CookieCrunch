@@ -63,6 +63,9 @@ class GameScene: SKScene {
         cookiesLayer.position = layerPosition
         gameLayer.addChild(cookiesLayer)
         
+        // hiding the gameLayer
+        gameLayer.hidden = true
+        
         swipeFromColumn = nil
         swipeFromRow = nil
         
@@ -378,6 +381,26 @@ class GameScene: SKScene {
         let moveAction = SKAction.moveBy(CGVector(dx: 0, dy: 3), duration: 0.7)
         moveAction.timingMode = .EaseOut
         scoreLabel.runAction(SKAction.sequence([moveAction, SKAction.removeFromParent()]))
+    }
+    
+    // Animating the end of level
+    func animateGameOver(completion: () -> ()) {
+        let action = SKAction.moveBy(CGVector(dx: 0, dy: -size.height), duration: 0.3)
+        action.timingMode = .EaseIn
+        gameLayer.runAction(action, completion: completion)
+    }
+    
+    func animateBeginGame(completion: () -> ()) {
+        gameLayer.hidden = false
+        gameLayer.position = CGPoint(x: 0, y: size.height)
+        let action = SKAction.moveBy(CGVector(dx: 0, dy: -size.height), duration: 0.3)
+        action.timingMode = .EaseOut
+        gameLayer.runAction(action, completion: completion)
+    }
+    
+    // To remove the candies after finishing a level
+    func removeAllCookieSprites() {
+        cookiesLayer.removeAllChildren()
     }
 
 }
