@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class GameViewController: UIViewController {
     var scene: GameScene!
@@ -27,6 +28,14 @@ class GameViewController: UIViewController {
     
     // The power to shuffle
     @IBOutlet weak var shuffleButton: UIButton!
+    
+    // For music
+    lazy var backgroundMusic: AVAudioPlayer = {
+        let url = NSBundle.mainBundle().URLForResource("Mining by Moonlight", withExtension: "mp3")
+        let player = AVAudioPlayer(contentsOfURL: url, error: nil)
+        player.numberOfLoops = -1
+        return player
+        }()
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -73,6 +82,9 @@ class GameViewController: UIViewController {
         // Present the scene.
         skView.presentScene(scene)
         
+        
+        //Start the game and music
+        backgroundMusic.play()
         beginGame()
     }
     
