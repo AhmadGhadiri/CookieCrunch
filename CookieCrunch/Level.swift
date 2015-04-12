@@ -23,6 +23,9 @@ class Level {
     var targetScore = 0
     var maximumMoves = 0
     
+    // For combos
+    private var comboMultiplier = 0
+    
     
     func cookieAtColumn(column: Int, row: Int) -> Cookie? {
         assert(column >= 0 && column < NumColumns)
@@ -346,7 +349,13 @@ class Level {
     private func calculateScores(chains: MySet<Chain>) {
         // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
         for chain in chains {
-            chain.score = 60 * (chain.length - 2)
+            chain.score = 60 * (chain.length - 2) * comboMultiplier // To calculate the combos score
+            ++comboMultiplier
         }
     }
+    
+    func resetComboMultiplier() {
+        comboMultiplier = 1
+    }
+
 }
