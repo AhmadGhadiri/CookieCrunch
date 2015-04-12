@@ -58,6 +58,24 @@
                                 <rect key="frame" x="0.0" y="209" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="bp6-cq-hAy">
+                                <rect key="frame" x="110" y="456" width="100" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <state key="normal" backgroundImage="Button">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Shuffle">
+                                            <attributes>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="20" name="LucidaGrande"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="shuffleButtonPressed:" destination="LVB-YS-i5n" eventType="touchUpInside" id="Ufn-aI-ofo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -65,6 +83,7 @@
                         <outlet property="gameOverPanel" destination="ZTd-lW-daQ" id="g2l-84-Hcb"/>
                         <outlet property="movesLabel" destination="jyM-KT-PKW" id="Qyz-AZ-9d7"/>
                         <outlet property="scoreLabel" destination="bfo-Qi-OzW" id="hfm-Ft-URQ"/>
+                        <outlet property="shuffleButton" destination="bp6-cq-hAy" id="bME-ZU-ZDK"/>
                         <outlet property="targetLabel" destination="EcJ-vb-7ck" id="AxX-rT-69B"/>
                     </connections>
                 </viewController>
@@ -73,6 +92,9 @@
             <point key="canvasLocation" x="130" y="250"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Button" width="100" height="36"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
