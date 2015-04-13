@@ -259,18 +259,44 @@ class Level {
         return set
     }
     
+    private func detectLShapedMatches(horizontalMatches: MySet<Chain>, verticalMatches: MySet<Chain>) -> MySet<Chain> {
+        var set = MySet<Chain>()
+        set = set.unionSet(horizontalMatches)
+        set = set.unionSet(verticalMatches)
+        for chain in horizontalMatches {
+            if chain.length == 3 {
+                for vchain in verticalMatches {
+                    if vchain.length == 3 && vchain.firstCookie().cookieType == chain.firstCookie().cookieType && (vchain.firstCookie()==chain.firstCookie() || vchain.firstCookie() == chain.lastCookie() || vchain.lastCookie() == chain.firstCookie() || vchain.lastCookie() == chain.lastCookie()) {
+                        var newChain = Chain(chainType: .LShape)
+                        for cookie in chain.cookies {
+                            newChain.addCookie(cookie)
+                        }
+                        for cookie in vchain.cookies {
+                            newChain.addCookie(cookie)
+                        }
+                        set.addElement(newChain)
+                        set.removeElement(vchain)
+                        set.removeElement(chain)
+                    }
+                }
+            }
+        }
+        return set
+    }
+    
     // To remove all the matches from the board
     func removeMatches() -> MySet<Chain> {
         let horizontalChains = detectHorizontalMatches()
         let verticalChains = detectVerticalMatches()
         
-        removeCookies(horizontalChains)
-        removeCookies(verticalChains)
+        let allChains = detectLShapedMatches(horizontalChains, verticalMatches: verticalChains)
+        //removeCookies(horizontalChains)
+        //removeCookies(verticalChains)
+        removeCookies(allChains)
         
-        calculateScores(horizontalChains)
-        calculateScores(verticalChains)
+        calculateScores(allChains)
         
-        return horizontalChains.unionSet(verticalChains)
+        return allChains
     }
     
     // Helper method for removing the matches
@@ -337,7 +363,7 @@ class Level {
                     array.append(cookie)
                 }
             }
-            // 5
+            //
             if !array.isEmpty {
                 columns.append(array)
             }
@@ -349,8 +375,13 @@ class Level {
     private func calculateScores(chains: MySet<Chain>) {
         // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
         for chain in chains {
-            chain.score = 60 * (chain.length - 2) * comboMultiplier // To calculate the combos score
-            ++comboMultiplier
+            if chain.chainType == .Horizontal || chain.chainType == .Vertical {
+                chain.score = 60 * (chain.length - 2) * comboMultiplier // To calculate the combos score
+                ++comboMultiplier
+            } else if chain.chainType == .LShape {
+                chain.score = 150 * comboMultiplier
+                ++comboMultiplier
+            }
         }
     }
     

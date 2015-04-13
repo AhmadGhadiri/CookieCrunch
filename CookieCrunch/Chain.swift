@@ -16,11 +16,13 @@ class Chain: Hashable, Printable {
     enum ChainType: Printable {
         case Horizontal
         case Vertical
+        case LShape
         
         var description: String {
             switch self {
             case .Horizontal: return "Horizontal"
             case .Vertical: return "Vertical"
+            case .LShape: return "LShape"
             }
         }
     }

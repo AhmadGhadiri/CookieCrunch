@@ -76,7 +76,7 @@ class GameViewController: UIViewController {
         scene.swipeHandler = handleSwipe
         
         // Create the level and add it to scene
-        level = Level(filename: "Level_3")
+        level = Level(filename: "Level_1")
         scene.level = level
         
         // Adding background for tiles
