@@ -17,12 +17,14 @@ class Chain: Hashable, Printable {
         case Horizontal
         case Vertical
         case LShape
+        case TShape
         
         var description: String {
             switch self {
             case .Horizontal: return "Horizontal"
             case .Vertical: return "Vertical"
             case .LShape: return "LShape"
+            case .TShape: return "TShape"
             }
         }
     }
@@ -45,6 +47,10 @@ class Chain: Hashable, Printable {
     
     func lastCookie() -> Cookie {
         return cookies[cookies.count - 1]
+    }
+    
+    func returnCookie(cookiepos:Int) -> Cookie {
+        return cookies[cookiepos]
     }
     
     var length: Int {

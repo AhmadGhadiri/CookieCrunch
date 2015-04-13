@@ -259,7 +259,7 @@ class Level {
         return set
     }
     
-    private func detectLShapedMatches(horizontalMatches: MySet<Chain>, verticalMatches: MySet<Chain>) -> MySet<Chain> {
+    private func detectAllShapedMatches(horizontalMatches: MySet<Chain>, verticalMatches: MySet<Chain>) -> MySet<Chain> {
         var set = MySet<Chain>()
         set = set.unionSet(horizontalMatches)
         set = set.unionSet(verticalMatches)
@@ -268,6 +268,18 @@ class Level {
                 for vchain in verticalMatches {
                     if vchain.length == 3 && vchain.firstCookie().cookieType == chain.firstCookie().cookieType && (vchain.firstCookie()==chain.firstCookie() || vchain.firstCookie() == chain.lastCookie() || vchain.lastCookie() == chain.firstCookie() || vchain.lastCookie() == chain.lastCookie()) {
                         var newChain = Chain(chainType: .LShape)
+                        for cookie in chain.cookies {
+                            newChain.addCookie(cookie)
+                        }
+                        for cookie in vchain.cookies {
+                            newChain.addCookie(cookie)
+                        }
+                        set.addElement(newChain)
+                        set.removeElement(vchain)
+                        set.removeElement(chain)
+                    }
+                    else if vchain.length == 3 && vchain.firstCookie().cookieType == chain.firstCookie().cookieType && (vchain.firstCookie() == chain.returnCookie(1) || vchain.lastCookie() == chain.returnCookie(1) || vchain.returnCookie(1) == chain.firstCookie() || vchain.returnCookie(1) == chain.lastCookie()) {
+                        var newChain = Chain(chainType: .TShape)
                         for cookie in chain.cookies {
                             newChain.addCookie(cookie)
                         }
@@ -289,7 +301,7 @@ class Level {
         let horizontalChains = detectHorizontalMatches()
         let verticalChains = detectVerticalMatches()
         
-        let allChains = detectLShapedMatches(horizontalChains, verticalMatches: verticalChains)
+        let allChains = detectAllShapedMatches(horizontalChains, verticalMatches: verticalChains)
         //removeCookies(horizontalChains)
         //removeCookies(verticalChains)
         removeCookies(allChains)
@@ -380,6 +392,9 @@ class Level {
                 ++comboMultiplier
             } else if chain.chainType == .LShape {
                 chain.score = 150 * comboMultiplier
+                ++comboMultiplier
+            } else if chain.chainType == .TShape {
+                chain.score = 140 * comboMultiplier
                 ++comboMultiplier
             }
         }
