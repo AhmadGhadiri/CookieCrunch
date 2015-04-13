@@ -29,6 +29,11 @@ class GameViewController: UIViewController {
     // The power to shuffle
     @IBOutlet weak var shuffleButton: UIButton!
     
+    
+    // Music Button
+    @IBOutlet weak var musicButton: UIButton!
+    let image = UIImage(named: "musicButton") as UIImage?
+    
     // For music
     lazy var backgroundMusic: AVAudioPlayer = {
         let url = NSBundle.mainBundle().URLForResource("Mining by Moonlight", withExtension: "mp3")
@@ -54,6 +59,7 @@ class GameViewController: UIViewController {
         
         // Hiding the shuffle button
         shuffleButton.hidden = true
+        musicButton.hidden = true
         
         // Configure the view.
         let skView = view as! SKView
@@ -95,6 +101,7 @@ class GameViewController: UIViewController {
         level.resetComboMultiplier()
         scene.animateBeginGame() {
             self.shuffleButton.hidden = false
+            self.musicButton.hidden = false
         }
         shuffle()
     }
@@ -205,6 +212,14 @@ class GameViewController: UIViewController {
     @IBAction func shuffleButtonPressed(AnyObject) {
         shuffle()
         decrementMoves()
+    }
+    
+    @IBAction func musicButtonPressed(AnyObject) {
+        if backgroundMusic.playing {
+            backgroundMusic.stop()
+        } else {
+            backgroundMusic.play()
+        }
     }
 
 
