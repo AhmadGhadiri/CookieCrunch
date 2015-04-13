@@ -24,6 +24,7 @@
 		E08680D61AD98D0A00129F2C /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680D51AD98D0A00129F2C /* Extentions.swift */; };
 		E08680DD1AD9902E00129F2C /* RWTChain.m in Sources */ = {isa = PBXBuildFile; fileRef = E08680DC1AD9902E00129F2C /* RWTChain.m */; };
 		E08680E01AD9A7C800129F2C /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680DF1AD9A7C800129F2C /* Chain.swift */; };
+		E08680E21ADB2F9800129F2C /* Grid.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E08680E11ADB2F9800129F2C /* Grid.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		E08680DC1AD9902E00129F2C /* RWTChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTChain.m; sourceTree = "<group>"; };
 		E08680DE1AD9929D00129F2C /* RWTChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RWTChain.h; sourceTree = "<group>"; };
 		E08680DF1AD9A7C800129F2C /* Chain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
+		E08680E11ADB2F9800129F2C /* Grid.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Grid.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				E03DAC251AD5438D00014779 /* Cookie.swift */,
 				E03DAC071AD540D200014779 /* Main.storyboard */,
 				E03DAC0A1AD540D200014779 /* Images.xcassets */,
+				E08680E11ADB2F9800129F2C /* Grid.atlas */,
 				E03DAC231AD5416B00014779 /* Sprites.atlas */,
 				E03DAC0C1AD540D200014779 /* LaunchScreen.xib */,
 				E03DABFD1AD540D200014779 /* Supporting Files */,
@@ -232,6 +235,7 @@
 				E03DAC0E1AD540D200014779 /* LaunchScreen.xib in Resources */,
 				E03DAC0B1AD540D200014779 /* Images.xcassets in Resources */,
 				E03DAC091AD540D200014779 /* Main.storyboard in Resources */,
+				E08680E21ADB2F9800129F2C /* Grid.atlas in Resources */,
 				E03DAC241AD5416B00014779 /* Sprites.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
