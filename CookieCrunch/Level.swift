@@ -291,9 +291,13 @@ class Level {
                         set.removeElement(chain)
                     }
                 }
-            }
-            if chain.length == 4 {
+            } else if chain.length == 4 {
                 var newChain = Chain(chainType: .LongHori)
+                for cookie in chain.cookies { newChain.addCookie(cookie) }
+                set.removeElement(chain)
+                set.addElement(newChain)
+            } else if chain.length == 5 {
+                var newChain = Chain(chainType: .FiveHor)
                 for cookie in chain.cookies { newChain.addCookie(cookie) }
                 set.removeElement(chain)
                 set.addElement(newChain)
@@ -302,6 +306,11 @@ class Level {
         for chain in verticalMatches {
             if chain.length == 4 {
                 var newChain = Chain(chainType: .LongVer)
+                for cookie in chain.cookies { newChain.addCookie(cookie) }
+                set.removeElement(chain)
+                set.addElement(newChain)
+            } else if chain.length == 5 {
+                var newChain = Chain(chainType: .FiveVer)
                 for cookie in chain.cookies { newChain.addCookie(cookie) }
                 set.removeElement(chain)
                 set.addElement(newChain)
@@ -412,6 +421,9 @@ class Level {
                 ++comboMultiplier
             } else if chain.chainType == .LongHori || chain.chainType == .LongVer {
                 chain.score = 130 * comboMultiplier
+                ++comboMultiplier
+            } else if chain.chainType == .FiveHor || chain.chainType == .FiveVer {
+                chain.score = 170 * comboMultiplier
                 ++comboMultiplier
             }
         }

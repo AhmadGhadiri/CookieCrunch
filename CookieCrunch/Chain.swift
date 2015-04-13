@@ -20,6 +20,8 @@ class Chain: Hashable, Printable {
         case TShape
         case LongHori
         case LongVer
+        case FiveHor
+        case FiveVer
         
         var description: String {
             switch self {
@@ -29,6 +31,8 @@ class Chain: Hashable, Printable {
             case .TShape: return "TShape"
             case .LongHori: return "LongHori"
             case .LongVer: return "LongVer"
+            case .FiveHor: return "FiveHor"
+            case .FiveVer: return "FiveVer"
             }
         }
     }
