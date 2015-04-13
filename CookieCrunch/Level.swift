@@ -292,6 +292,20 @@ class Level {
                     }
                 }
             }
+            if chain.length == 4 {
+                var newChain = Chain(chainType: .LongHori)
+                for cookie in chain.cookies { newChain.addCookie(cookie) }
+                set.removeElement(chain)
+                set.addElement(newChain)
+            }
+        }
+        for chain in verticalMatches {
+            if chain.length == 4 {
+                var newChain = Chain(chainType: .LongVer)
+                for cookie in chain.cookies { newChain.addCookie(cookie) }
+                set.removeElement(chain)
+                set.addElement(newChain)
+            }
         }
         return set
     }
@@ -395,6 +409,9 @@ class Level {
                 ++comboMultiplier
             } else if chain.chainType == .TShape {
                 chain.score = 140 * comboMultiplier
+                ++comboMultiplier
+            } else if chain.chainType == .LongHori || chain.chainType == .LongVer {
+                chain.score = 130 * comboMultiplier
                 ++comboMultiplier
             }
         }
