@@ -9,7 +9,10 @@
 import SpriteKit
 
 enum CookieType: Int, Printable{
-    case Unknown = 0, Croissant, Cupcake, Danish, Donut, Macaroon, SugarCookie
+    case Unknown = 0, Croissant, Cupcake, Danish, Donut, Macaroon, SugarCookie,
+                    CroissantVer, CroissantHor, CroissantBomb, CupcakeVer, CupcakeHor, CupcakeBomb,
+                    DanishVer, DanishHor, DanishBomb, DonutVer, DonutHor, DonutBomb, MacaroonVer,
+                    MacaroonHor, MacaroonBomb, SugarCookieVer, SugarCookieHor,SugarCookieBomb
     
     
     var spriteName: String {
@@ -19,7 +22,25 @@ enum CookieType: Int, Printable{
             "Danish",
             "Donut",
             "Macaroon",
-            "SugarCookie"]
+            "SugarCookie",
+            "CroissantVer",
+            "CroissantHor",
+            "CroissantBomb",
+            "CupcakeVer",
+            "CupcakeHor",
+            "CupcakeBomb",
+            "DanishVer",
+            "DanishHor",
+            "DanishBomb",
+            "DonutVer",
+            "DonutHor",
+            "DonutBomb",
+            "MacaroonVer",
+            "MacaroonHor",
+            "MacaroonBomb",
+            "SugarCookieVer",
+            "SugarCookieHor",
+            "SugarCookieBomb"]
         
         return spriteNames[rawValue - 1]
     }
