@@ -14,7 +14,6 @@
 		E03DAC0B1AD540D200014779 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E03DAC0A1AD540D200014779 /* Images.xcassets */; };
 		E03DAC0E1AD540D200014779 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E03DAC0C1AD540D200014779 /* LaunchScreen.xib */; };
 		E03DAC1A1AD540D200014779 /* CookieCrunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DAC191AD540D200014779 /* CookieCrunchTests.swift */; };
-		E03DAC241AD5416B00014779 /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E03DAC231AD5416B00014779 /* Sprites.atlas */; };
 		E03DAC261AD5438D00014779 /* Cookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DAC251AD5438D00014779 /* Cookie.swift */; };
 		E08680CC1AD98C7F00129F2C /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680CB1AD98C7F00129F2C /* Array2D.swift */; };
 		E08680CE1AD98C9400129F2C /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680CD1AD98C9400129F2C /* Level.swift */; };
@@ -25,6 +24,7 @@
 		E08680E01AD9A7C800129F2C /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08680DF1AD9A7C800129F2C /* Chain.swift */; };
 		E08680E21ADB2F9800129F2C /* Grid.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E08680E11ADB2F9800129F2C /* Grid.atlas */; };
 		E08680E61ADC22D700129F2C /* Levels in Resources */ = {isa = PBXBuildFile; fileRef = E08680E51ADC22D700129F2C /* Levels */; };
+		E0AAE34B1AE6E25300D38B5A /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E0AAE34A1AE6E25300D38B5A /* Sprites.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +49,6 @@
 		E03DAC131AD540D200014779 /* CookieCrunchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookieCrunchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E03DAC181AD540D200014779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E03DAC191AD540D200014779 /* CookieCrunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieCrunchTests.swift; sourceTree = "<group>"; };
-		E03DAC231AD5416B00014779 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Sprites.atlas; path = ../Sprites.atlas; sourceTree = "<group>"; };
 		E03DAC251AD5438D00014779 /* Cookie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cookie.swift; sourceTree = "<group>"; };
 		E08680CB1AD98C7F00129F2C /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
 		E08680CD1AD98C9400129F2C /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
@@ -60,6 +59,7 @@
 		E08680DF1AD9A7C800129F2C /* Chain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
 		E08680E11ADB2F9800129F2C /* Grid.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Grid.atlas; sourceTree = "<group>"; };
 		E08680E51ADC22D700129F2C /* Levels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Levels; sourceTree = "<group>"; };
+		E0AAE34A1AE6E25300D38B5A /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,10 +113,10 @@
 				E08680D31AD98CDA00129F2C /* Tile.swift */,
 				E03DAC251AD5438D00014779 /* Cookie.swift */,
 				E03DAC071AD540D200014779 /* Main.storyboard */,
+				E0AAE34A1AE6E25300D38B5A /* Sprites.atlas */,
 				E08680E51ADC22D700129F2C /* Levels */,
 				E03DAC0A1AD540D200014779 /* Images.xcassets */,
 				E08680E11ADB2F9800129F2C /* Grid.atlas */,
-				E03DAC231AD5416B00014779 /* Sprites.atlas */,
 				E03DAC0C1AD540D200014779 /* LaunchScreen.xib */,
 				E03DABFD1AD540D200014779 /* Supporting Files */,
 			);
@@ -228,12 +228,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0AAE34B1AE6E25300D38B5A /* Sprites.atlas in Resources */,
 				E03DAC0E1AD540D200014779 /* LaunchScreen.xib in Resources */,
 				E03DAC0B1AD540D200014779 /* Images.xcassets in Resources */,
 				E03DAC091AD540D200014779 /* Main.storyboard in Resources */,
 				E08680E61ADC22D700129F2C /* Levels in Resources */,
 				E08680E21ADB2F9800129F2C /* Grid.atlas in Resources */,
-				E03DAC241AD5416B00014779 /* Sprites.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
