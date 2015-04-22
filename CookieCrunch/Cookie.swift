@@ -10,9 +10,9 @@ import SpriteKit
 
 enum CookieType: Int, Printable{
     case Unknown = 0, Croissant, Cupcake, Danish, Donut, Macaroon, SugarCookie,
-                    CroissantVer, CroissantHor, CroissantBomb, CupcakeVer, CupcakeHor, CupcakeBomb,
-                    DanishVer, DanishHor, DanishBomb, DonutVer, DonutHor, DonutBomb, MacaroonVer,
-                    MacaroonHor, MacaroonBomb, SugarCookieVer, SugarCookieHor,SugarCookieBomb
+                    CroissantVer, CupcakeVer, DanishVer, DonutVer, MacaroonVer, SugarCookieVer,
+                    CroissantHor, CupcakeHor, DanishHor, DonutHor, MacaroonHor, SugarCookieHor,
+                    CroissantBomb, CupcakeBomb, DanishBomb, DonutBomb, MacaroonBomb, SugarCookieBomb
     
     
     var spriteName: String {
@@ -24,22 +24,22 @@ enum CookieType: Int, Printable{
             "Macaroon",
             "SugarCookie",
             "CroissantVer",
-            "CroissantHor",
-            "CroissantBomb",
             "CupcakeVer",
-            "CupcakeHor",
-            "CupcakeBomb",
             "DanishVer",
-            "DanishHor",
-            "DanishBomb",
             "DonutVer",
-            "DonutHor",
-            "DonutBomb",
             "MacaroonVer",
-            "MacaroonHor",
-            "MacaroonBomb",
             "SugarCookieVer",
+            "CroissantHor",
+            "CupcakeHor",
+            "DanishHor",
+            "DonutHor",
+            "MacaroonHor",
             "SugarCookieHor",
+            "CroissantBomb",
+            "CupcakeBomb",
+            "DanishBomb",
+            "DonutBomb",
+            "MacaroonBomb",
             "SugarCookieBomb"]
         
         return spriteNames[rawValue - 1]
@@ -67,7 +67,7 @@ func ==(lhs: Cookie, rhs: Cookie) -> Bool {
 class Cookie: Printable, Hashable {
     var column: Int
     var row: Int
-    let cookieType: CookieType
+    var cookieType: CookieType
     var sprite: SKSpriteNode?
     
     //for printable
@@ -79,6 +79,23 @@ class Cookie: Printable, Hashable {
         self.column = column
         self.row = row
         self.cookieType = cookieType
+    }
+    
+    static func returnGiftedVersion(oldType:CookieType, giftType: String) -> CookieType {
+        if giftType == "VERTICAL" {
+            return CookieType(rawValue: oldType.rawValue + 6)!
+        }
+        else if giftType == "HORIZONTAL" {
+            return CookieType(rawValue: oldType.rawValue + 12)!
+        }
+        else if giftType == "BOMB" {
+            return CookieType(rawValue: oldType.rawValue + 18)!
+        }
+        return CookieType.Unknown
+    }
+    
+    func changeCookieType(newType:CookieType) {
+        self.cookieType = newType
     }
     
     var hashValue: Int {

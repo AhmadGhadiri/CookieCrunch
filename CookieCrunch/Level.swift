@@ -320,27 +320,44 @@ class Level {
     }
     
     // To remove all the matches from the board
-    func removeMatches() -> MySet<Chain> {
+    func removeandReplaceMatches() -> (remove: MySet<Chain>,replace: [Cookie]) {
         let horizontalChains = detectHorizontalMatches()
         let verticalChains = detectVerticalMatches()
         
         let allChains = detectAllShapedMatches(horizontalChains, verticalMatches: verticalChains)
         //removeCookies(horizontalChains)
         //removeCookies(verticalChains)
-        removeCookies(allChains)
+        var chainCookies = removeCookies(allChains)
         
         calculateScores(allChains)
         
-        return allChains
+        return (chainCookies.remove,chainCookies.replace)
     }
     
     // Helper method for removing the matches
-    private func removeCookies(chains: MySet<Chain>) {
-        for chain in chains {
-            for cookie in chain.cookies {
-                cookies[cookie.column, cookie.row] = nil
+    private func removeCookies(chains: MySet<Chain>) -> (remove: MySet<Chain>,replace:[Cookie]){
+        var replaceCookies = [Cookie]()
+        var newChains = chains
+        for chain in newChains {
+            if chain.chainType == .LongVer || chain.chainType == .FiveVer {
+                let length = chain.length
+                let oldCookieType = chain.firstCookie().cookieType
+                for idx in 0..<length-1 {
+                    cookies[chain.returnCookie(idx).column, chain.returnCookie(idx).row] = nil
+                }
+                let newRow = chain.returnCookie(length-1).row
+                let newColumn = chain.returnCookie(length-1).column
+                chain.removeLastCookie()
+                cookies[newColumn,newRow]?.changeCookieType(Cookie.returnGiftedVersion(oldCookieType, giftType: "VERTICAL"))
+                replaceCookies.append(cookies[newColumn, newRow]!)
+            }
+            else {
+                for cookie in chain.cookies {
+                    cookies[cookie.column, cookie.row] = nil
+                }
             }
         }
+        return (newChains,replaceCookies)
     }
     
     // Filling the holes after a successful movement

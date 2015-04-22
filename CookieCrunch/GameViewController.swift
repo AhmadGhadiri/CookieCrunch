@@ -135,14 +135,14 @@ class GameViewController: UIViewController {
     
     // Handling the matches in the game map
     func handleMatches() {
-        let chains = level.removeMatches()
-        if chains.count == 0 {
+        let resultCookies = level.removeandReplaceMatches()
+        if resultCookies.remove.count == 0 {
             beginNextTurn()
             return
         }
-        scene.animateMatchedCookies(chains) {
+        scene.animateMatchedCookies(resultCookies.remove,replaceCookies: resultCookies.replace) {
             // To handle the score
-            for chain in chains {
+            for chain in resultCookies.remove {
                 self.score += chain.score
             }
             self.updateLabels()

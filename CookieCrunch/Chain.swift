@@ -49,6 +49,10 @@ class Chain: Hashable, Printable {
         cookies.append(cookie)
     }
     
+    func removeLastCookie() {
+        cookies.removeLast()
+    }
+    
     func firstCookie() -> Cookie {
         return cookies[0]
     }

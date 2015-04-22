@@ -328,9 +328,8 @@ class GameScene: SKScene {
     }
 
     // Animating the removing of cookies
-    func animateMatchedCookies(chains: MySet<Chain>, completion: () -> ()) {
+    func animateMatchedCookies(chains: MySet<Chain>,replaceCookies: [Cookie], completion: () -> ()) {
         for chain in chains {
-            
             // For scores
             animateScoreForChain(chain)
             
@@ -347,6 +346,11 @@ class GameScene: SKScene {
         }
         runAction(matchSound)
         runAction(SKAction.waitForDuration(0.3), completion: completion)
+        
+        for (idx, cookie) in enumerate(replaceCookies) {
+            let sprite  = cookie.sprite!
+            sprite.texture = SKTexture(imageNamed: cookie.cookieType.spriteName)
+        }
     }
     
     // Now fill the empty sprites after successful swap
