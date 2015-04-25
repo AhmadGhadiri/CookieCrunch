@@ -35,11 +35,12 @@ class GameViewController: UIViewController {
     let image = UIImage(named: "musicButton") as UIImage?
     
     // For music
-    /*lazy var backgroundMusic: AVAudioPlayer = {
-        let fileUrl = NSBundle.mainBundle().URLForResource("Moo", withExtension: "mp3")!
-        
-        let player =  AVAudioPlayer(contentsOfURL: fileUrl, error: &error)
-    }()*/
+    lazy var backgroundMusic: AVAudioPlayer = {
+        let url = NSBundle.mainBundle().URLForResource("Mining by Moonlight", withExtension: "mp3")
+        let player = AVAudioPlayer(contentsOfURL: url, error: nil)
+        player.numberOfLoops = -1
+        return player
+        }()
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -89,7 +90,7 @@ class GameViewController: UIViewController {
         
         
         //Start the game and music
-        //backgroundMusic.play()
+        backgroundMusic.play()
         beginGame()
     }
     
@@ -214,11 +215,11 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func musicButtonPressed(AnyObject) {
-        /*if backgroundMusic.playing {
+        if backgroundMusic.playing {
             backgroundMusic.stop()
         } else {
             backgroundMusic.play()
-        }*/
+        }
     }
 
 
