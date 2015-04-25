@@ -115,7 +115,6 @@ class Level {
                 }
             }
         }
-        
         possibleSwaps = set
     }
     
@@ -217,7 +216,7 @@ class Level {
                                 chain.addCookie(cookies[column, row]!)
                                 ++column
                             }
-                                while column < NumColumns && cookies[column, row]?.cookieType == matchType
+                            while column < NumColumns && cookies[column, row]?.cookieType == matchType
                             
                             set.addElement(chain)
                             continue
@@ -292,7 +291,7 @@ class Level {
                     }
                 }
             } else if chain.length == 4 {
-                var newChain = Chain(chainType: .LongHori)
+                var newChain = Chain(chainType: .LongHor)
                 for cookie in chain.cookies { newChain.addCookie(cookie) }
                 set.removeElement(chain)
                 set.addElement(newChain)
@@ -327,38 +326,77 @@ class Level {
         let allChains = detectAllShapedMatches(horizontalChains, verticalMatches: verticalChains)
         //removeCookies(horizontalChains)
         //removeCookies(verticalChains)
-        var chainCookies = removeCookies(allChains)
+        var chainCookies = reOrganizeCookies(allChains)
         
-        calculateScores(allChains)
+        calculateScores(chainCookies.remove)
         
         return (chainCookies.remove,chainCookies.replace)
     }
     
     // Helper method for removing the matches
-    private func removeCookies(chains: MySet<Chain>) -> (remove: MySet<Chain>,replace:[Cookie]){
+    private func reOrganizeCookies(chains: MySet<Chain>) -> (remove: MySet<Chain>,replace:[Cookie]){
         var replaceCookies = [Cookie]()
         var newChains = chains
+        var finalChains = MySet<Chain>()
+        var toBeRemovedCookies = Set<Cookie>()
         for chain in newChains {
-            if chain.chainType == .LongVer || chain.chainType == .FiveVer {
-                let length = chain.length
-                let oldCookieType = chain.firstCookie().cookieType
-                for idx in 0..<length-1 {
+            let length = chain.length
+            let oldCookieType = chain.firstCookie().cookieType
+            for idx in 0..<length {
+                switch chain.returnCookie(idx).cookieType {
+                case .CroissantHor, .CupcakeHor, .DonutHor, .DanishHor, .MacaroonHor, .SugarCookieHor:
+                    finalChains = finalChains.unionSet(removeCookies("ROW", columnPosition: chain.returnCookie(idx).column, rowPosition: chain.returnCookie(idx).row))
+                    break
+                case .CroissantVer, .CupcakeVer, .DonutVer, .DanishVer, .MacaroonVer, .SugarCookieVer:
+                    finalChains = finalChains.unionSet(removeCookies("COLUMN", columnPosition: chain.returnCookie(idx).column, rowPosition: chain.returnCookie(idx).row))
+                    break
+                case .CroissantBomb, .CupcakeBomb, .DonutBomb, .DanishBomb, .MacaroonBomb, .SugarCookieBomb:
+                    finalChains = finalChains.unionSet(removeCookies("BOMB", columnPosition: chain.returnCookie(idx).column, rowPosition: chain.returnCookie(idx).row))
+                default:
+                    break
+                }
+            }
+            for idx in 0..<length - 1 {
+                if (cookies[chain.returnCookie(idx).column, chain.returnCookie(idx).row] != nil) {
                     cookies[chain.returnCookie(idx).column, chain.returnCookie(idx).row] = nil
                 }
-                let newRow = chain.returnCookie(length-1).row
-                let newColumn = chain.returnCookie(length-1).column
-                chain.removeLastCookie()
-                cookies[newColumn,newRow]?.changeCookieType(Cookie.returnGiftedVersion(oldCookieType, giftType: "VERTICAL"))
-                replaceCookies.append(cookies[newColumn, newRow]!)
             }
-            else {
-                for cookie in chain.cookies {
-                    cookies[cookie.column, cookie.row] = nil
+            let newRow = chain.returnCookie(length-1).row
+            let newColumn = chain.returnCookie(length-1).column
+            chain.removeLastCookie()
+            if cookies[newColumn,newRow] != nil {
+                switch chain.chainType {
+                case .LongVer:
+                cookies[newColumn,newRow]?.changeCookieType(CookieType.returnGiftedVersion(oldCookieType,giftType: "VERTICAL"))
+                    replaceCookies.append(cookies[newColumn, newRow]!)
+                    break
+                case .LongHor:
+                cookies[newColumn,newRow]?.changeCookieType(CookieType.returnGiftedVersion(oldCookieType, giftType: "HORIZONTAL"))
+                    replaceCookies.append(cookies[newColumn, newRow]!)
+                    break
+                case .LShape,.TShape:
+                cookies[newColumn,newRow]?.changeCookieType(CookieType.returnGiftedVersion(oldCookieType, giftType: "BOMB"))
+                    replaceCookies.append(cookies[newColumn, newRow]!)
+                    break
+                case .FiveHor, .FiveVer:
+                    cookies[newColumn,newRow]?.changeCookieType(CookieType(rawValue: 25)!)
+                    replaceCookies.append(cookies[newColumn, newRow]!)
+                    break
+                default:
+                    if cookies[newColumn,newRow] != nil {
+                        chain.addCookie(cookies[newColumn,newRow]!)
+                        cookies[newColumn, newRow] = nil
+                    }
                 }
             }
         }
-        return (newChains,replaceCookies)
+        finalChains = finalChains.unionSet(newChains)
+        return (finalChains,replaceCookies)
     }
+//    
+//    private func findAllCookiesForRomoval(chains:MySet<Chain>) -> MySet<Chain> {
+//        let newChains =
+//    }
     
     // Filling the holes after a successful movement
     func fillHoles() -> [[Cookie]] {
@@ -427,27 +465,167 @@ class Level {
     private func calculateScores(chains: MySet<Chain>) {
         // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
         for chain in chains {
-            if chain.chainType == .Horizontal || chain.chainType == .Vertical {
-                chain.score = 60 * (chain.length - 2) * comboMultiplier // To calculate the combos score
+            switch chain.chainType {
+            case .Horizontal, .Vertical:
+                chain.score = 60 * comboMultiplier // To calculate the combos score
                 ++comboMultiplier
-            } else if chain.chainType == .LShape {
+                break
+            case .LShape:
                 chain.score = 150 * comboMultiplier
                 ++comboMultiplier
-            } else if chain.chainType == .TShape {
+                break
+            case .TShape:
                 chain.score = 140 * comboMultiplier
                 ++comboMultiplier
-            } else if chain.chainType == .LongHori || chain.chainType == .LongVer {
+                break
+            case .LongHor, .LongVer:
                 chain.score = 130 * comboMultiplier
                 ++comboMultiplier
-            } else if chain.chainType == .FiveHor || chain.chainType == .FiveVer {
+                break
+            case .FiveHor, .FiveVer:
                 chain.score = 170 * comboMultiplier
                 ++comboMultiplier
+                break
+            case .OneColumn, .OneRow:
+                chain.score = 200 * comboMultiplier
+                ++comboMultiplier
+                break
+            case .OneRing:
+                chain.score = 180 * comboMultiplier
+                ++comboMultiplier
+                break
+            default:
+                break
             }
         }
     }
     
     func resetComboMultiplier() {
         comboMultiplier = 1
+    }
+    
+    
+    // working on boosts
+    /*func resetBursts() {
+        for i in 0..<NumColumns {
+            for j in 0..<NumRows {
+                cookies[i,j]?.bursted = false
+            }
+        }
+    }*/
+    
+    
+    // Helper function to remove cookies
+    func removeCookies(toRemove: String, columnPosition: Int, rowPosition: Int) -> MySet<Chain> {
+        var toBeRemoved = MySet<Chain>()
+        if toRemove == "ROW" {
+            var rowChain = Chain(chainType: .OneRow)
+            for idx in 0..<NumColumns {
+                if (cookies[idx, rowPosition] != nil) {
+                    switch cookies[idx, rowPosition]!.cookieType {
+                    case .SugarCookie,
+                    .Croissant,
+                    .Cupcake,
+                    .Danish,
+                    .Donut,
+                    .Macaroon,
+                    .CroissantHor,
+                    .CupcakeHor,
+                    .DonutHor,
+                    .DanishHor,
+                    .MacaroonHor,
+                    .SugarCookieHor:
+                        rowChain.addCookie(cookies[idx, rowPosition]!)
+                        cookies[idx, rowPosition] = nil
+                        break
+                    case .CroissantVer, .CupcakeVer, .DonutVer, .DanishVer, .MacaroonVer, .SugarCookieVer:
+                        toBeRemoved = toBeRemoved.unionSet(removeCookies("COLUMN", columnPosition: idx, rowPosition: rowPosition))
+                        break
+                    case .CroissantBomb, .CupcakeBomb, .DonutBomb, .DanishBomb, .MacaroonBomb, .SugarCookieBomb:
+                        toBeRemoved = toBeRemoved.unionSet(removeCookies("BOMB", columnPosition: idx, rowPosition: rowPosition))
+                        break
+                    default:
+                        print("the type is not")
+                        break
+                    }
+                }
+            }
+            toBeRemoved.addElement(rowChain)
+        }
+        else if toRemove == "COLUMN" {
+            var columnChain = Chain(chainType: .OneColumn)
+            for idx in 0..<NumRows {
+                if (cookies[columnPosition, idx] != nil) {
+                    switch cookies[columnPosition, idx]!.cookieType {
+                    case .SugarCookie,
+                    .Croissant,
+                    .Cupcake,
+                    .Danish,
+                    .Donut,
+                    .Macaroon,
+                    .CroissantVer,
+                    .CupcakeVer,
+                    .DonutVer,
+                    .DanishVer,
+                    .MacaroonVer,
+                    .SugarCookieVer:
+                        columnChain.addCookie(cookies[columnPosition, idx]!)
+                        cookies[columnPosition, idx] = nil
+                        break
+                    case .CroissantHor, .CupcakeHor, .DonutHor, .DanishHor, .MacaroonHor, .SugarCookieHor:
+                        toBeRemoved = toBeRemoved.unionSet(removeCookies("ROW", columnPosition: columnPosition, rowPosition: idx))
+                        break
+                    case .CroissantBomb, .CupcakeBomb, .DonutBomb, .DanishBomb, .MacaroonBomb, .SugarCookieBomb:
+                        toBeRemoved = toBeRemoved.unionSet(removeCookies("BOMB", columnPosition: columnPosition, rowPosition: idx))
+                        break
+                    default:
+                        print("the type is not")
+                        break
+                        
+                    }
+                }
+            }
+            toBeRemoved.addElement(columnChain)
+        }
+        else if toRemove == "BOMB" {
+            var ringChain = Chain(chainType: .OneRing)
+            for jdx in rowPosition-1...rowPosition+1 {
+                for idx in columnPosition-1...columnPosition+1 {
+                    if ((idx <= 8 && idx >= 0) && (jdx <= 8 && jdx >= 0) && (cookies[idx,jdx] != nil)) {
+                        if (idx == columnPosition && jdx == rowPosition) {
+                            ringChain.addCookie(cookies[idx,jdx]!)
+                            cookies[idx,jdx] = nil
+                            continue
+                        }
+                        switch cookies[idx,jdx]!.cookieType {
+                        case .SugarCookie,
+                        .Croissant,
+                        .Cupcake,
+                        .Danish,
+                        .Donut,
+                        .Macaroon:
+                            ringChain.addCookie(cookies[idx,jdx]!)
+                            cookies[idx,jdx] = nil
+                            break
+                        case .CroissantVer, .CupcakeVer, .DonutVer, .DanishVer, .MacaroonVer, .SugarCookieVer:
+                            toBeRemoved = toBeRemoved.unionSet(removeCookies("COLUMN", columnPosition: idx, rowPosition: jdx))
+                            break
+                        case .CroissantHor, .CupcakeHor, .DonutHor, .DanishHor, .MacaroonHor, .SugarCookieHor:
+                            toBeRemoved = toBeRemoved.unionSet(removeCookies("ROW", columnPosition: idx, rowPosition: jdx))
+                            break
+                        case .CroissantBomb, .CupcakeBomb, .DonutBomb, .DanishBomb, .MacaroonBomb, .SugarCookieBomb:
+                            toBeRemoved = toBeRemoved.unionSet(removeCookies("BOMB", columnPosition: idx, rowPosition: jdx))
+                            break
+                        default:
+                            print("the type is not")
+                            break
+                        }
+                    }
+                }
+            }
+            toBeRemoved.addElement(ringChain)
+        }
+        return toBeRemoved
     }
 
 }

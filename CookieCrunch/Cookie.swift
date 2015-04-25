@@ -8,11 +8,19 @@
 
 import SpriteKit
 
+func ==(lhs: CookieType, rhs: CookieType) -> Bool {
+//    if lhs.rawValue == 25 || rhs.rawValue == 25 {
+//        return false
+//    }
+    return lhs.rawValue%6 == rhs.rawValue%6
+}
+
 enum CookieType: Int, Printable{
     case Unknown = 0, Croissant, Cupcake, Danish, Donut, Macaroon, SugarCookie,
                     CroissantVer, CupcakeVer, DanishVer, DonutVer, MacaroonVer, SugarCookieVer,
                     CroissantHor, CupcakeHor, DanishHor, DonutHor, MacaroonHor, SugarCookieHor,
-                    CroissantBomb, CupcakeBomb, DanishBomb, DonutBomb, MacaroonBomb, SugarCookieBomb
+                    CroissantBomb, CupcakeBomb, DanishBomb, DonutBomb, MacaroonBomb, SugarCookieBomb,
+                    allcookie
     
     
     var spriteName: String {
@@ -40,7 +48,8 @@ enum CookieType: Int, Printable{
             "DanishBomb",
             "DonutBomb",
             "MacaroonBomb",
-            "SugarCookieBomb"]
+            "SugarCookieBomb",
+            "allcookie"]
         
         return spriteNames[rawValue - 1]
     }
@@ -52,6 +61,29 @@ enum CookieType: Int, Printable{
     static func random() -> CookieType {
         return CookieType(rawValue: Int(arc4random_uniform(6)) + 1)!
     }
+    
+    static func returnGiftedVersion(oldType:CookieType, giftType: String) -> CookieType {
+        var typeValue = oldType.rawValue%6
+        typeValue = (typeValue == 0 ? 6 : oldType.rawValue%6)
+        switch giftType {
+        case "VERTICAL":
+            return CookieType(rawValue: typeValue + 6)!
+        case "HORIZONTAL":
+            return CookieType(rawValue: typeValue + 12)!
+        case "BOMB":
+            return CookieType(rawValue: typeValue + 18)!
+        default:
+            return CookieType.Unknown
+        }
+    }
+    
+    static func isItBoostable(type: CookieType) -> Bool {
+        if type.rawValue >= 7 && type.rawValue <= 19 {
+            return true
+        }
+        return false
+    }
+
     
     // For Printable
     var description: String {
@@ -69,6 +101,14 @@ class Cookie: Printable, Hashable {
     var row: Int
     var cookieType: CookieType
     var sprite: SKSpriteNode?
+    /*var bursted: Bool {
+        get {
+            return self.bursted
+        }
+        set(bursted) {
+            self.bursted = bursted
+        }
+    }*/
     
     //for printable
     var description: String {
@@ -79,19 +119,7 @@ class Cookie: Printable, Hashable {
         self.column = column
         self.row = row
         self.cookieType = cookieType
-    }
-    
-    static func returnGiftedVersion(oldType:CookieType, giftType: String) -> CookieType {
-        if giftType == "VERTICAL" {
-            return CookieType(rawValue: oldType.rawValue + 6)!
-        }
-        else if giftType == "HORIZONTAL" {
-            return CookieType(rawValue: oldType.rawValue + 12)!
-        }
-        else if giftType == "BOMB" {
-            return CookieType(rawValue: oldType.rawValue + 18)!
-        }
-        return CookieType.Unknown
+        //self.bursted = false
     }
     
     func changeCookieType(newType:CookieType) {

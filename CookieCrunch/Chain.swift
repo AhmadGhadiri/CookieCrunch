@@ -16,9 +16,12 @@ class Chain: Hashable, Printable {
     enum ChainType: Printable {
         case Horizontal
         case Vertical
+        case OneRow
+        case OneColumn
+        case OneRing
         case LShape
         case TShape
-        case LongHori
+        case LongHor
         case LongVer
         case FiveHor
         case FiveVer
@@ -27,9 +30,12 @@ class Chain: Hashable, Printable {
             switch self {
             case .Horizontal: return "Horizontal"
             case .Vertical: return "Vertical"
+            case .OneRow: return "OneRow"
+            case .OneColumn: return "OneColumn"
+            case .OneRing: return "OneRing"
             case .LShape: return "LShape"
             case .TShape: return "TShape"
-            case .LongHori: return "LongHori"
+            case .LongHor: return "LongHor"
             case .LongVer: return "LongVer"
             case .FiveHor: return "FiveHor"
             case .FiveVer: return "FiveVer"
@@ -46,6 +52,11 @@ class Chain: Hashable, Printable {
     }
     
     func addCookie(cookie: Cookie) {
+        for oneCookie in cookies {
+            if oneCookie == cookie {
+                return
+            }
+        }
         cookies.append(cookie)
     }
     
