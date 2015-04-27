@@ -304,53 +304,27 @@ class Level {
             if chain.length == 3 {
                 for vchain in verticalMatches {
                     if vchain.length == 3 && vchain.firstCookie().cookieType == chain.firstCookie().cookieType && (vchain.firstCookie()==chain.firstCookie() || vchain.firstCookie() == chain.lastCookie() || vchain.lastCookie() == chain.firstCookie() || vchain.lastCookie() == chain.lastCookie()) {
-                        var newChain = Chain(chainType: .LShape)
-                        for cookie in chain.cookies {
-                            newChain.addCookie(cookie)
-                        }
-                        for cookie in vchain.cookies {
-                            newChain.addCookie(cookie)
-                        }
-                        set.addElement(newChain)
+                        chain.addChain(vchain)
+                        chain.changeType(.LShape)
                         set.removeElement(vchain)
-                        set.removeElement(chain)
                     }
                     else if vchain.length == 3 && vchain.firstCookie().cookieType == chain.firstCookie().cookieType && (vchain.firstCookie() == chain.returnCookie(1) || vchain.lastCookie() == chain.returnCookie(1) || vchain.returnCookie(1) == chain.firstCookie() || vchain.returnCookie(1) == chain.lastCookie()) {
-                        var newChain = Chain(chainType: .TShape)
-                        for cookie in chain.cookies {
-                            newChain.addCookie(cookie)
-                        }
-                        for cookie in vchain.cookies {
-                            newChain.addCookie(cookie)
-                        }
-                        set.addElement(newChain)
+                        chain.addChain(vchain)
+                        chain.changeType(.TShape)
                         set.removeElement(vchain)
-                        set.removeElement(chain)
                     }
                 }
             } else if chain.length == 4 {
-                var newChain = Chain(chainType: .LongHor)
-                for cookie in chain.cookies { newChain.addCookie(cookie) }
-                set.removeElement(chain)
-                set.addElement(newChain)
+                chain.changeType(.LongHor)
             } else if chain.length == 5 {
-                var newChain = Chain(chainType: .FiveHor)
-                for cookie in chain.cookies { newChain.addCookie(cookie) }
-                set.removeElement(chain)
-                set.addElement(newChain)
+                chain.changeType(.FiveHor)
             }
         }
         for chain in verticalMatches {
             if chain.length == 4 {
-                var newChain = Chain(chainType: .LongVer)
-                for cookie in chain.cookies { newChain.addCookie(cookie) }
-                set.removeElement(chain)
-                set.addElement(newChain)
+                chain.changeType(.LongVer)
             } else if chain.length == 5 {
-                var newChain = Chain(chainType: .FiveVer)
-                for cookie in chain.cookies { newChain.addCookie(cookie) }
-                set.removeElement(chain)
-                set.addElement(newChain)
+                chain.changeType(.FiveVer)
             }
         }
         return set
