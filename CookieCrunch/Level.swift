@@ -23,6 +23,10 @@ class Level {
     var targetScore = 0
     var maximumMoves = 0
     
+    // For the last swap and boostable moves
+    var lastSwap : Swap = Swap(cookieA: Cookie(column: 1, row: 1, cookieType: .Unknown), cookieB: Cookie(column: 1, row: 1, cookieType: .Unknown) )
+    var boostable : Bool = false
+    
     // For combos
     private var comboMultiplier = 0
     
@@ -71,47 +75,52 @@ class Level {
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 if let cookie = cookies[column, row] {
-                    
-                    // TODO: detection logic goes here
-                    // Is it possible to swap this cookie with the one on the right?
-                    if column < NumColumns - 1 {
-                        // Have a cookie in this spot? If there is no tile, there is no cookie.
-                        if let other = cookies[column + 1, row] {
-                            // Swap them
-                            cookies[column, row] = other
-                            cookies[column + 1, row] = cookie
-                            
-                            // Is either cookie now part of a chain?
-                            if hasChainAtColumn(column + 1, row: row) ||
-                                hasChainAtColumn(column, row: row) {
-                                    set.addElement(Swap(cookieA: cookie, cookieB: other))
-                            }
-                            
-                            // Swap them back
-                            cookies[column, row] = cookie
-                            cookies[column + 1, row] = other
-                            
+                    if cookies[column, row]?.cookieType == .allcookie {
+                        var ringCookies = cookiesAroundThisCookie(column, row: row)
+                        for other in ringCookies {
+                            set.addElement(Swap(cookieA: cookies[other.column,other.row]!, cookieB: cookies[column,row]!))
                         }
                     }
-                    
-                    // Try to swap with the one above
-                    if row < NumRows - 1 {
-                        if let other = cookies[column, row + 1] {
-                            cookies[column, row] = other
-                            cookies[column, row + 1] = cookie
-                            
-                            // Is either cookie now part of a chain?
-                            if hasChainAtColumn(column, row: row + 1) ||
-                                hasChainAtColumn(column, row: row) {
-                                    set.addElement(Swap(cookieA: cookie, cookieB: other))
+                    else {
+                        // TODO: detection logic goes here
+                        // Is it possible to swap this cookie with the one on the right?
+                        if column < NumColumns - 1 {
+                            // Have a cookie in this spot? If there is no tile, there is no cookie.
+                            if let other = cookies[column + 1, row] {
+                                // Swap them
+                                cookies[column, row] = other
+                                cookies[column + 1, row] = cookie
+                                
+                                // Is either cookie now part of a chain?
+                                if hasChainAtColumn(column + 1, row: row) ||
+                                    hasChainAtColumn(column, row: row) {
+                                        set.addElement(Swap(cookieA: cookie, cookieB: other))
+                                }
+                                
+                                // Swap them back
+                                cookies[column, row] = cookie
+                                cookies[column + 1, row] = other
+                                
                             }
-                            
-                            // Swap them back
-                            cookies[column, row] = cookie
-                            cookies[column, row + 1] = other
+                        }
+                        // Try to swap with the one above
+                        if row < NumRows - 1 {
+                            if let other = cookies[column, row + 1] {
+                                cookies[column, row] = other
+                                cookies[column, row + 1] = cookie
+                                
+                                // Is either cookie now part of a chain?
+                                if hasChainAtColumn(column, row: row + 1) ||
+                                    hasChainAtColumn(column, row: row) {
+                                        set.addElement(Swap(cookieA: cookie, cookieB: other))
+                                }
+                                
+                                // Swap them back
+                                cookies[column, row] = cookie
+                                cookies[column, row + 1] = other
+                            }
                         }
                     }
-
                 }
             }
         }
@@ -173,6 +182,8 @@ class Level {
                 }
                 targetScore = dictionary["targetScore"] as! Int
                 maximumMoves = dictionary["moves"] as! Int
+//                self.lastSwap = Swap(cookieA: Cookie(column: 1, row: 1, cookieType: .Unknown), cookieB: Cookie(column: 1, row: 1, cookieType: .Unknown) )
+//                self.boostable = false
             }
         }
     }
@@ -191,6 +202,11 @@ class Level {
         cookies[columnB, rowB] = swap.cookieA
         swap.cookieA.column = columnB
         swap.cookieA.row = rowB
+        
+        if (swap.cookieA.cookieType == .allcookie || swap.cookieB.cookieType == .allcookie) {
+            self.boostable = true
+        }
+        self.lastSwap = swap
     }
     
     func isPossibleSwap(swap: Swap) -> Bool {
@@ -258,6 +274,28 @@ class Level {
         return set
     }
     
+    private func makeBoostingChain() -> Chain {
+        var chain = Chain(chainType: .OneType)
+        if self.boostable {
+            var removeTypeCookie = (lastSwap.cookieA.cookieType == .allcookie) ? lastSwap.cookieB.cookieType : lastSwap.cookieA.cookieType
+            var removingCookie = (lastSwap.cookieA.cookieType == .allcookie) ? lastSwap.cookieA : lastSwap.cookieB
+            
+            chain.addCookie(removingCookie)
+
+            for column in 0..<NumColumns {
+                for row in 0..<NumRows {
+                    if let cookie = cookies[column, row] {
+                        if cookie.cookieType == removeTypeCookie {
+                            chain.addCookie(cookie)
+                        }
+                    }
+                }
+            }
+            self.boostable = false
+        }
+        return chain
+    }
+    
     private func detectAllShapedMatches(horizontalMatches: MySet<Chain>, verticalMatches: MySet<Chain>) -> MySet<Chain> {
         var set = MySet<Chain>()
         set = set.unionSet(horizontalMatches)
@@ -323,7 +361,11 @@ class Level {
         let horizontalChains = detectHorizontalMatches()
         let verticalChains = detectVerticalMatches()
         
-        let allChains = detectAllShapedMatches(horizontalChains, verticalMatches: verticalChains)
+        var allChains = detectAllShapedMatches(horizontalChains, verticalMatches: verticalChains)
+        let newChain = makeBoostingChain()
+        if newChain.length > 0 {
+            allChains.addElement(newChain)
+        }
         //removeCookies(horizontalChains)
         //removeCookies(verticalChains)
         var chainCookies = reOrganizeCookies(allChains)
@@ -338,7 +380,6 @@ class Level {
         var replaceCookies = [Cookie]()
         var newChains = chains
         var finalChains = MySet<Chain>()
-        var toBeRemovedCookies = Set<Cookie>()
         for chain in newChains {
             let length = chain.length
             let oldCookieType = chain.firstCookie().cookieType
@@ -494,6 +535,10 @@ class Level {
                 chain.score = 180 * comboMultiplier
                 ++comboMultiplier
                 break
+            case .OneType:
+                chain.score = chain.length * 50 * comboMultiplier
+                ++comboMultiplier
+                break
             default:
                 break
             }
@@ -627,5 +672,20 @@ class Level {
         }
         return toBeRemoved
     }
+    
+    
+    //Helper function
+    func cookiesAroundThisCookie(column: Int, row: Int) -> [Cookie] {
+        var ringCookies = [Cookie]()
+        for idx in column-1...column+1 {
+            for jdx in row-1...row+1 {
+                if ((idx <= NumColumns && idx >= 0) && (jdx <= NumRows && jdx >= 0) && (cookies[idx,jdx] != nil) && !(idx == column && jdx == row)) {
+                    ringCookies.append(cookies[idx,jdx]!)
+                }
+            }
+        }
+        return ringCookies
+    }
+    
 
 }

@@ -9,9 +9,12 @@
 import SpriteKit
 
 func ==(lhs: CookieType, rhs: CookieType) -> Bool {
-//    if lhs.rawValue == 25 || rhs.rawValue == 25 {
-//        return false
-//    }
+    if lhs.rawValue == 25 || rhs.rawValue == 25 {
+        if lhs.rawValue == 25 && rhs.rawValue == 25 {
+            return true
+        }
+        return false
+    }
     return lhs.rawValue%6 == rhs.rawValue%6
 }
 

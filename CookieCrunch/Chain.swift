@@ -19,6 +19,7 @@ class Chain: Hashable, Printable {
         case OneRow
         case OneColumn
         case OneRing
+        case OneType
         case LShape
         case TShape
         case LongHor
@@ -33,6 +34,7 @@ class Chain: Hashable, Printable {
             case .OneRow: return "OneRow"
             case .OneColumn: return "OneColumn"
             case .OneRing: return "OneRing"
+            case .OneType: return "OneType"
             case .LShape: return "LShape"
             case .TShape: return "TShape"
             case .LongHor: return "LongHor"

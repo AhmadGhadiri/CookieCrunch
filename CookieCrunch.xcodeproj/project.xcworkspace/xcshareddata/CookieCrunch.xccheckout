@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>D22C2699-F991-440F-8D63-2C1A1E02FB5C</string>
 	<key>IDESourceControlProjectName</key>
-	<string>CookieCrunch</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>CA1732AC6B6354360DFD8BEE066830074DFAB146</key>
 		<string>https://github.com/AhmadGhadiri/CookieCrunch</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CookieCrunch.xcodeproj</string>
+	<string>CookieCrunch.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>CA1732AC6B6354360DFD8BEE066830074DFAB146</key>

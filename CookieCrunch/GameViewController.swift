@@ -76,7 +76,7 @@ class GameViewController: UIViewController {
         scene.swipeHandler = handleSwipe
         
         // Create the level and add it to scene
-        level = Level(filename: "Level_1")
+        level = Level(filename: "Level_0")
         scene.level = level
         
         // Adding background for tiles
@@ -124,6 +124,7 @@ class GameViewController: UIViewController {
         
         if level.isPossibleSwap(swap) {
             level.performSwap(swap)
+            
             // Performs swap and wait for removing to be completed
             scene.animateSwap(swap, completion: handleMatches)
         } else {
