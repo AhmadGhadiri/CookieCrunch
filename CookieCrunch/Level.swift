@@ -132,11 +132,9 @@ class Level {
     private func createInitialCookies() -> MySet<Cookie> {
         var set = MySet<Cookie>()
         
-        // 1
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 if tiles[column,row] != nil {
-                    // 2
                     
                     // To remove all the cookies that are making matches already
                     var cookieType: CookieType
@@ -150,11 +148,9 @@ class Level {
                                 cookies[column, row - 1]?.cookieType == cookieType &&
                                 cookies[column, row - 2]?.cookieType == cookieType)
                 
-                    // 3
                     let cookie = Cookie(column: column, row: row, cookieType: cookieType)
                     cookies[column, row] = cookie
                 
-                    // 4
                     set.addElement(cookie)
                 }
             }
@@ -182,8 +178,6 @@ class Level {
                 }
                 targetScore = dictionary["targetScore"] as! Int
                 maximumMoves = dictionary["moves"] as! Int
-//                self.lastSwap = Swap(cookieA: Cookie(column: 1, row: 1, cookieType: .Unknown), cookieB: Cookie(column: 1, row: 1, cookieType: .Unknown) )
-//                self.boostable = false
             }
         }
     }
@@ -226,7 +220,7 @@ class Level {
                     
                     if cookies[column + 1, row]?.cookieType == matchType &&
                         cookies[column + 2, row]?.cookieType == matchType {
-                            // 5
+                            
                             let chain = Chain(chainType: .Horizontal)
                             do {
                                 chain.addCookie(cookies[column, row]!)
@@ -238,7 +232,6 @@ class Level {
                             continue
                     }
                 }
-                // 6
                 ++column
             }
         }
@@ -412,28 +405,27 @@ class Level {
     // Filling the holes after a successful movement
     func fillHoles() -> [[Cookie]] {
         var columns = [[Cookie]]()
-        // 1
+        
         for column in 0..<NumColumns {
             var array = [Cookie]()
             for row in 0..<NumRows {
-                // 2
+                
                 if tiles[column, row] != nil && cookies[column, row] == nil {
-                    // 3
+                    
                     for lookup in (row + 1)..<NumRows {
                         if let cookie = cookies[column, lookup] {
-                            // 4
+                            
                             cookies[column, lookup] = nil
                             cookies[column, row] = cookie
                             cookie.row = row
-                            // 5
+                            
                             array.append(cookie)
-                            // 6
+                            
                             break
                         }
                     }
                 }
             }
-            // 7
             if !array.isEmpty {
                 columns.append(array)
             }
@@ -448,23 +440,23 @@ class Level {
         
         for column in 0..<NumColumns {
             var array = [Cookie]()
-            // 1
+
             for var row = NumRows - 1; row >= 0 && cookies[column, row] == nil; --row {
-                // 2
+                
                 if tiles[column, row] != nil {
-                    // 3
+                    
                     var newCookieType: CookieType
                     do {
                         newCookieType = CookieType.random()
                     } while newCookieType == cookieType
                     cookieType = newCookieType
-                    // 4
+                    
                     let cookie = Cookie(column: column, row: row, cookieType: cookieType)
                     cookies[column, row] = cookie
                     array.append(cookie)
                 }
             }
-            //
+            
             if !array.isEmpty {
                 columns.append(array)
             }
