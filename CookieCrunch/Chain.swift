@@ -62,6 +62,16 @@ class Chain: Hashable, Printable {
         cookies.append(cookie)
     }
     
+    func addChain(otherChain: Chain) {
+        for cookie in otherChain.cookies {
+            addCookie(cookie)
+        }
+    }
+    
+    func changeType(newType: ChainType) {
+        self.chainType = newType
+    }
+    
     func removeLastCookie() {
         cookies.removeLast()
     }

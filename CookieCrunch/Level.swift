@@ -550,16 +550,6 @@ class Level {
     }
     
     
-    // working on boosts
-    /*func resetBursts() {
-        for i in 0..<NumColumns {
-            for j in 0..<NumRows {
-                cookies[i,j]?.bursted = false
-            }
-        }
-    }*/
-    
-    
     // Helper function to remove cookies
     func removeCookies(toRemove: String, columnPosition: Int, rowPosition: Int) -> MySet<Chain> {
         var toBeRemoved = MySet<Chain>()
