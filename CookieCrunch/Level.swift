@@ -340,8 +340,7 @@ class Level {
         if newChain.length > 0 {
             allChains.addElement(newChain)
         }
-        //removeCookies(horizontalChains)
-        //removeCookies(verticalChains)
+        
         var chainCookies = reOrganizeCookies(allChains)
         
         calculateScores(chainCookies.remove)
@@ -408,10 +407,7 @@ class Level {
         finalChains = finalChains.unionSet(newChains)
         return (finalChains,replaceCookies)
     }
-//    
-//    private func findAllCookiesForRomoval(chains:MySet<Chain>) -> MySet<Chain> {
-//        let newChains =
-//    }
+    
     
     // Filling the holes after a successful movement
     func fillHoles() -> [[Cookie]] {
@@ -532,18 +528,8 @@ class Level {
             for idx in 0..<NumColumns {
                 if (cookies[idx, rowPosition] != nil) {
                     switch cookies[idx, rowPosition]!.cookieType {
-                    case .SugarCookie,
-                    .Croissant,
-                    .Cupcake,
-                    .Danish,
-                    .Donut,
-                    .Macaroon,
-                    .CroissantHor,
-                    .CupcakeHor,
-                    .DonutHor,
-                    .DanishHor,
-                    .MacaroonHor,
-                    .SugarCookieHor:
+                    case .SugarCookie, .Croissant, .Cupcake, .Danish, .Donut, .Macaroon,
+                    .CroissantHor, .CupcakeHor, .DonutHor, .DanishHor, .MacaroonHor, .SugarCookieHor:
                         rowChain.addCookie(cookies[idx, rowPosition]!)
                         cookies[idx, rowPosition] = nil
                         break
@@ -566,18 +552,8 @@ class Level {
             for idx in 0..<NumRows {
                 if (cookies[columnPosition, idx] != nil) {
                     switch cookies[columnPosition, idx]!.cookieType {
-                    case .SugarCookie,
-                    .Croissant,
-                    .Cupcake,
-                    .Danish,
-                    .Donut,
-                    .Macaroon,
-                    .CroissantVer,
-                    .CupcakeVer,
-                    .DonutVer,
-                    .DanishVer,
-                    .MacaroonVer,
-                    .SugarCookieVer:
+                    case .SugarCookie, .Croissant, .Cupcake, .Danish, .Donut, .Macaroon,
+                    .CroissantVer, .CupcakeVer, .DonutVer, .DanishVer, .MacaroonVer, .SugarCookieVer:
                         columnChain.addCookie(cookies[columnPosition, idx]!)
                         cookies[columnPosition, idx] = nil
                         break
@@ -600,19 +576,14 @@ class Level {
             var ringChain = Chain(chainType: .OneRing)
             for jdx in rowPosition-1...rowPosition+1 {
                 for idx in columnPosition-1...columnPosition+1 {
-                    if ((idx <= 8 && idx >= 0) && (jdx <= 8 && jdx >= 0) && (cookies[idx,jdx] != nil)) {
+                    if ((idx < NumColumns && idx >= 0) && (jdx < NumRows && jdx >= 0) && (cookies[idx,jdx] != nil)) {
                         if (idx == columnPosition && jdx == rowPosition) {
                             ringChain.addCookie(cookies[idx,jdx]!)
                             cookies[idx,jdx] = nil
                             continue
                         }
                         switch cookies[idx,jdx]!.cookieType {
-                        case .SugarCookie,
-                        .Croissant,
-                        .Cupcake,
-                        .Danish,
-                        .Donut,
-                        .Macaroon:
+                        case .SugarCookie, .Croissant, .Cupcake, .Danish, .Donut, .Macaroon:
                             ringChain.addCookie(cookies[idx,jdx]!)
                             cookies[idx,jdx] = nil
                             break
@@ -643,7 +614,7 @@ class Level {
         var ringCookies = [Cookie]()
         for idx in column-1...column+1 {
             for jdx in row-1...row+1 {
-                if ((idx <= NumColumns && idx >= 0) && (jdx <= NumRows && jdx >= 0) && (cookies[idx,jdx] != nil) && !(idx == column && jdx == row)) {
+                if ((idx < NumColumns && idx >= 0) && (jdx < NumRows && jdx >= 0) && (cookies[idx,jdx] != nil) && !(idx == column && jdx == row)) {
                     ringCookies.append(cookies[idx,jdx]!)
                 }
             }
