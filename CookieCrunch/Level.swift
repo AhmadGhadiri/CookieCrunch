@@ -515,7 +515,8 @@ class Level {
     // Helper function to remove cookies
     func removeCookies(toRemove: String, columnPosition: Int, rowPosition: Int) -> MySet<Chain> {
         var toBeRemoved = MySet<Chain>()
-        if toRemove == "ROW" {
+        switch toRemove {
+        case "ROW":
             var rowChain = Chain(chainType: .OneRow)
             for idx in 0..<NumColumns {
                 if (cookies[idx, rowPosition] != nil) {
@@ -538,8 +539,8 @@ class Level {
                 }
             }
             toBeRemoved.addElement(rowChain)
-        }
-        else if toRemove == "COLUMN" {
+            break
+        case "COLUMN":
             var columnChain = Chain(chainType: .OneColumn)
             for idx in 0..<NumRows {
                 if (cookies[columnPosition, idx] != nil) {
@@ -563,8 +564,8 @@ class Level {
                 }
             }
             toBeRemoved.addElement(columnChain)
-        }
-        else if toRemove == "BOMB" {
+            break
+        case "BOMB":
             var ringChain = Chain(chainType: .OneRing)
             for jdx in rowPosition-1...rowPosition+1 {
                 for idx in columnPosition-1...columnPosition+1 {
@@ -596,6 +597,9 @@ class Level {
                 }
             }
             toBeRemoved.addElement(ringChain)
+            break
+        default:
+            break
         }
         return toBeRemoved
     }
@@ -613,6 +617,5 @@ class Level {
         }
         return ringCookies
     }
-    
 
 }
